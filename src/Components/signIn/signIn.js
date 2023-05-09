@@ -38,7 +38,7 @@ const SignIn = () => {
 
   const navigateHome = () => {
     // 👇️ navigate to /
-    navigate('/home');
+    navigate('/home/body');
   };
 
 
@@ -81,7 +81,7 @@ const SignIn = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }} style={{flexDirection : 'column'}}>
             <TextField
               margin="normal"
               required
@@ -119,7 +119,7 @@ const SignIn = () => {
                   Forgot password?
                 </Link>
               </Grid>
-              <Grid item>
+              <Grid item xs>
                 <Link href="#" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
