@@ -12,6 +12,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {Routes, Route, useNavigate} from 'react-router-dom';
+
+import axios from 'axios'
 
 function Copyright(props) {
   return (
@@ -28,14 +31,36 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function SignIn() {
+const SignIn = () => {
+
+  const navigate = useNavigate();
+
+
+  const navigateHome = () => {
+    // 👇️ navigate to /
+    navigate('/home');
+  };
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
+      username: data.get('username'),
       password: data.get('password'),
     });
+    axios.post('http://127.0.0.1:8080/login', {
+      username : data.get('username'),
+      password  : data.get('password')
+    }, ).then(res => {
+      if(res.data === true) {
+        localStorage.setItem('username', data.get('username'))
+        localStorage.setItem('password', data.get('password'))
+        navigateHome();
+      } else {
+        alert('Wrong Details Input! Please Check')
+      } 
+    })
   };
 
   return (
@@ -61,11 +86,9 @@ export default function SignIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              type='email'
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="User Name"
+              name="username"
               autoFocus
             />
             <TextField
@@ -109,3 +132,5 @@ export default function SignIn() {
     </ThemeProvider>
   );
 }
+
+export default SignIn;
