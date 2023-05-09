@@ -16,15 +16,12 @@ const Header = () => {
   if (userName === "") userName = "shsharma";
   return (
     <Grid style={Styles.parentGrid} container spacing={12}>
-      <Grid item xs={6}>
+      <Grid item xs={1}>
+        <img valt="bainIcon" style={Styles.bainImg} src={bainImg}></img>
+      </Grid>
+      <Grid style={Styles.leftMargin} item xs={5}>
         <div style={Styles.camundaLogoSection}>
-          
           <Link style={Styles.noUnderLine} href="/home/body">
-          <img
-            valt="bainIcon"
-            style={Styles.bainImg}
-            src={bainImg}
-          ></img>
             <h2 style={Styles.fontHeader}> Planning Workflow</h2>
           </Link>
         </div>
@@ -41,7 +38,6 @@ const Header = () => {
         <Link onClick={handleOpen}>Start Process</Link>&nbsp;&nbsp;
         <PersonIcon /> {userName}&nbsp;&nbsp;
         <Link href="/">Logout</Link>&nbsp;&nbsp;
-
         <Modal
           open={open}
           onClose={handleClose}
@@ -58,6 +54,10 @@ const Header = () => {
 };
 
 const Styles = {
+  leftMargin: {
+    marginLeft: "0px",
+    paddingLeft: "0px"
+  },
   marginTop: { marginTop: "25px" },
   fontHeader: {
     fontFamily: "fantasy",
@@ -92,6 +92,7 @@ const Styles = {
   bainImg: {
     height: "50px",
     width: "50px",
+    marginTop:"10px"
   },
 };
 
