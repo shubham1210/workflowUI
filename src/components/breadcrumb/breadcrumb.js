@@ -12,7 +12,7 @@ export default function Breadcrumb() {
   const linkURL = window.location.pathname
 
   const breadcrumbs = [
-    <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
+    <Link underline="hover" key="1" color="inherit" href="/home/body" onClick={handleClick}>
       <b>HOME</b>
     </Link>,
     <Link
@@ -22,7 +22,7 @@ export default function Breadcrumb() {
       href={linkURL}
       onClick={handleClick}
     >
-      <b>{linkURL.substring(1).toUpperCase()}</b>
+      <b>{linkURL.split("/")[2].toUpperCase()}</b>
     </Link>
   ];
   return (

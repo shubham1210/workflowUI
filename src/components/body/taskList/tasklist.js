@@ -12,7 +12,7 @@ const TaskList = () => {
 
   const fetchTaskList = async () => {
     const taskList = await getTaskList();
-    let userName = document.cookie.replace(/(?:(?:^|.*;\s*)loggedInUser\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    let userName = localStorage.getItem('username');
     if(userName === '') userName = 'shsharma';
     const filtered = taskList.data.filter(task => {
         return task.assignee === userName;
@@ -46,7 +46,7 @@ const Styles = {
     textAlign: "center",
   },
   paddingBottom: {
-    paddingBottom: "400px",
+    paddingBottom: "50px",
     backgroundColor: "white",
   },
   padding: {

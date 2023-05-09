@@ -33,7 +33,7 @@ export default function ProecssList() {
           onClick={() => {
             startProcess(params.row.id);
             alert("Process Started")
-            window.location = "/";
+            window.location = "/home/taskList";
           }}
         >
           Start Process

@@ -1,30 +1,35 @@
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import axios from 'axios';
-
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Checkbox from "@mui/material/Checkbox";
+import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../api/signInService";
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
+      {"Copyright © "}
       <Link color="inherit" href="#">
         Bain and Co.
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -32,35 +37,31 @@ function Copyright(props) {
 const theme = createTheme();
 
 const SignIn = () => {
-
   const navigate = useNavigate();
-
+  const [errorMessage, setErrorMessage] = React.useState(false);
 
   const navigateHome = () => {
-    // 👇️ navigate to /
-    navigate('/home');
+    navigate("/home/body");
   };
 
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      username: data.get('username'),
-      password: data.get('password'),
+      username: data.get("username"),
+      password: data.get("password"),
     });
-    axios.post('http://127.0.0.1:8080/login', {
-      username : data.get('username'),
-      password  : data.get('password')
-    }, ).then(res => {
-      if(res.data === true) {
-        localStorage.setItem('username', data.get('username'))
-        localStorage.setItem('password', data.get('password'))
-        navigateHome();
-      } else {
-        alert('Wrong Details Input! Please Check')
-      } 
-    })
+    const response = await loginUser(
+      data.get("username"),
+      data.get("password")
+    );
+    console.log(response);
+    if (response.status === 200) {
+      localStorage.setItem("username", response.data.username);
+      navigateHome();
+    } else {
+      setErrorMessage(true);
+    }
   };
 
   return (
@@ -70,18 +71,29 @@ const SignIn = () => {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <br></br>
+          {errorMessage && 
+          <Alert severity="error">
+            <AlertTitle></AlertTitle>
+            <strong>username or password is not correct</strong>
+          </Alert>}
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            sx={{ mt: 1 }}
+            style={{ flexDirection: "column" }}
+          >
             <TextField
               margin="normal"
               required
@@ -119,7 +131,7 @@ const SignIn = () => {
                   Forgot password?
                 </Link>
               </Grid>
-              <Grid item>
+              <Grid item xs>
                 <Link href="#" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
@@ -131,6 +143,6 @@ const SignIn = () => {
       </Container>
     </ThemeProvider>
   );
-}
+};
 
 export default SignIn;

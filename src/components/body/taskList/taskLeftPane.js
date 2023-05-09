@@ -6,6 +6,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import moment from 'moment';
+import Box from "@mui/material/Box";
 
 
 const TaskLeftPane = ({ taskList,setSelectedTask }) => {
@@ -43,6 +44,8 @@ const TaskLeftPane = ({ taskList,setSelectedTask }) => {
   
 
   return (
+    <Box sx={{ margin:"30px", width: "100%",minHeight: "100%", bgcolor: "background.paper", boxShadow: "3"}}>
+
     <Grid container spacing={12}>
       <Grid style={Styles.paddingTop} item xs={12}>
         <h2>Task Items({taskList?.length})</h2>
@@ -56,11 +59,13 @@ const TaskLeftPane = ({ taskList,setSelectedTask }) => {
         </List>
       </Grid>
     </Grid>
+    </Box>
   );
 };
 const Styles = {
   paddingTop: {
     paddingTop: "10px",
+    marginLeft: "10px",
   },
 };
 

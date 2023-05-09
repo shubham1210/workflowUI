@@ -6,22 +6,26 @@ import Link from "@mui/material/Link";
 import Modal from "@mui/material/Modal";
 import React from "react";
 import ProecssList from "../processList/processList";
+import bainImg from "../../img/bain.png";
 
 const Header = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  let userName = document.cookie.replace(
-    /(?:(?:^|.*;\s*)loggedInUser\s*\=\s*([^;]*).*$)|^.*$/,
-    "$1"
-  );
+  let userName = localStorage.getItem("username");
   if (userName === "") userName = "shsharma";
   return (
     <Grid style={Styles.parentGrid} container spacing={12}>
       <Grid item xs={6}>
         <div style={Styles.camundaLogoSection}>
-          <Link href="/">
-            <h2 style={Styles.fontHeader}> Planning Worflow</h2>
+          
+          <Link style={Styles.noUnderLine} href="/home/body">
+          <img
+            valt="bainIcon"
+            style={Styles.bainImg}
+            src={bainImg}
+          ></img>
+            <h2 style={Styles.fontHeader}> Planning Workflow</h2>
           </Link>
         </div>
       </Grid>
@@ -35,7 +39,9 @@ const Header = () => {
       >
         <AccountTreeIcon></AccountTreeIcon>&nbsp;&nbsp;
         <Link onClick={handleOpen}>Start Process</Link>&nbsp;&nbsp;
-        <PersonIcon /> &nbsp;&nbsp;{userName}
+        <PersonIcon /> {userName}&nbsp;&nbsp;
+        <Link href="/">Logout</Link>&nbsp;&nbsp;
+
         <Modal
           open={open}
           onClose={handleClose}
@@ -55,6 +61,7 @@ const Styles = {
   marginTop: { marginTop: "25px" },
   fontHeader: {
     fontFamily: "fantasy",
+    color: "black",
   },
   parentGrid: {
     justifyContent: "center",
@@ -78,6 +85,13 @@ const Styles = {
     border: "2px solid #000",
     boxShadow: 24,
     p: 4,
+  },
+  noUnderLine: {
+    textDecoration: "none",
+  },
+  bainImg: {
+    height: "50px",
+    width: "50px",
   },
 };
 

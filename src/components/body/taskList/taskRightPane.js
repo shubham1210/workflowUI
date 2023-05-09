@@ -102,11 +102,11 @@ function TaskrightPane({ selectedTask }) {
       </Grid>
 
       <Grid style={Styles.paddingTop} item xs={12}>
-        <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+        <Box sx={{ width: "100%", bgcolor: "background.paper", boxShadow: "3"}}>
           <Tabs value={tabSelected} onChange={handleChange}>
             <Tab value={0} label="Form" />
+            <Tab value={2} label="Process Diagram" />
             <Tab value={1} label="Description" />
-            <Tab value={2} label="Diagram" />
             <Tab value={3} label="History" />
           </Tabs>
         </Box>

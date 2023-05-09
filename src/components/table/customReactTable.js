@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { DataGrid } from "@mui/x-data-grid";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import VersioningTable from "./versioningTable";
 import moment from 'moment';
 
@@ -72,6 +72,10 @@ export default function DataGridDemo({ empList, saveEditiedVersion,taskType }) {
   const handleClickButton = () => {
     saveEditiedVersion(apiRef.current.getRowModels());
   };
+
+  useEffect(() => {
+   saveEditiedVersion(apiRef.current.getRowModels());
+  }, []);
 
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
