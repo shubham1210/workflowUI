@@ -1,12 +1,14 @@
 import Grid from "@mui/material/Grid";
+import { Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 import Body from "./components/body/body";
-import Header from "./components/header/header";
 import TaskList from "./components/body/taskList/tasklist";
-import Breadcrumb from "./components/breadcrumb/breadcrumb";
 import SuperSet from "./components/body/visualisation/visualisation";
+import Breadcrumb from "./components/breadcrumb/breadcrumb";
+import Header from "./components/header/header";
+import SignIn from './components/signIn/signIn';
 
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 let showBreadcrum = false;
 if (window.location.pathname==="/") {
   showBreadcrum = false;
@@ -31,9 +33,10 @@ function App() {
         <Grid item xs={12}>
           <Router>
             <Routes>
-              <Route exact path="/" element={<Body></Body>} />
+              <Route exact path="/home" element={<Body></Body>} />
               <Route path="/taskList" element={<TaskList></TaskList>} />
               <Route path="/visualisation" element={<SuperSet></SuperSet>} />
+              <Route path="/" element={ <SignIn/> } />
             </Routes>
           </Router>
         </Grid>
