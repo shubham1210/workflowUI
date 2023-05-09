@@ -38,7 +38,7 @@ const SignIn = () => {
 
   const navigateHome = () => {
     // 👇️ navigate to /
-    navigate('/home');
+    navigate('/home/body');
   };
 
 
@@ -49,18 +49,19 @@ const SignIn = () => {
       username: data.get('username'),
       password: data.get('password'),
     });
-    axios.post('http://127.0.0.1:8080/login', {
-      username : data.get('username'),
-      password  : data.get('password')
-    }, ).then(res => {
-      if(res.data === true) {
-        localStorage.setItem('username', data.get('username'))
-        localStorage.setItem('password', data.get('password'))
-        navigateHome();
-      } else {
-        alert('Wrong Details Input! Please Check')
-      } 
-    })
+    navigateHome();
+    // axios.post('http://127.0.0.1:8080/login', {
+    //   username : data.get('username'),
+    //   password  : data.get('password')
+    // }, ).then(res => {
+    //   if(res.data === true) {
+    //     localStorage.setItem('username', data.get('username'))
+    //     localStorage.setItem('password', data.get('password'))
+    //     navigateHome();
+    //   } else {
+    //     alert('Wrong Details Input! Please Check')
+    //   } 
+    // })
   };
 
   return (
@@ -81,7 +82,7 @@ const SignIn = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }} style={{flexDirection : 'column'}}>
             <TextField
               margin="normal"
               required
@@ -119,7 +120,7 @@ const SignIn = () => {
                   Forgot password?
                 </Link>
               </Grid>
-              <Grid item>
+              <Grid item xs>
                 <Link href="#" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
