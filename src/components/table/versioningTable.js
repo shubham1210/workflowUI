@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 import { getVersionsOfEmp } from "../api/employeeService";
+import moment from 'moment';
 
 export default function VersioningTable({ selectedRow }) {
   const [taskList, setTaskList] = useState([]);
@@ -36,6 +37,21 @@ export default function VersioningTable({ selectedRow }) {
       type: "number",
       width: 110,
       editable: false,
+    },
+    {
+      field: "versions",
+      headerName: "Version",
+      type: "number",
+      width: 110,
+      editable: false,
+    },{
+      field: "createdDate",
+      headerName: "Created Date",
+      description: "This column has a value getter and is not sortable.",
+      sortable: true,
+      width: 160,
+      valueFormatter: params => 
+      moment(params?.value).format("DD/MM/YYYY hh:mm A"),
     },
   ];
   return (

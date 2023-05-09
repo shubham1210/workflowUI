@@ -33,10 +33,10 @@ function App() {
         <Grid item xs={12}>
           <Router>
             <Routes>
-              <Route exact path="/home" element={<Body></Body>} />
+              <Route exact path="/" element={<Body></Body>} />
               <Route path="/taskList" element={<TaskList></TaskList>} />
               <Route path="/visualisation" element={<SuperSet></SuperSet>} />
-              <Route path="/" element={ <SignIn/> } />
+              <Route path="/home" element={ <SignIn/> } />
             </Routes>
           </Router>
         </Grid>

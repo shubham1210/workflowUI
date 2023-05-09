@@ -4,6 +4,7 @@ import Modal from "@mui/material/Modal";
 import { DataGrid } from "@mui/x-data-grid";
 import React, { useRef, useState } from "react";
 import VersioningTable from "./versioningTable";
+import moment from 'moment';
 
 export default function DataGridDemo({ empList, saveEditiedVersion,taskType }) {
   const renderDetailsButton = (params) => {
@@ -48,10 +49,12 @@ export default function DataGridDemo({ empList, saveEditiedVersion,taskType }) {
     },
     {
       field: "createdDate",
-      headerName: "created Date",
+      headerName: "Created Date",
       description: "This column has a value getter and is not sortable.",
-      sortable: false,
+      sortable: true,
       width: 160,
+      valueFormatter: params => 
+      moment(params?.value).format("DD/MM/YYYY hh:mm A"),
     },
     {
       field: "PreviousEdits",

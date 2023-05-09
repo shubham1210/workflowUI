@@ -30,6 +30,7 @@ function handleSubmit(task, isApproved, empList) {
     row.versions = parseInt(row.versions) + 1 + "";
     row.linkedId = row.id;
     delete row.id;
+    delete row.createdDate;
     newempList.push( row);
   });
  /*  const newempList = empList.keys().map((row) => {
