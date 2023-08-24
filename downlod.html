@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Download File</title>
+  </head>
+  <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        var loadText = document.querySelector(".loading-text");
+        var bg = document.querySelector(".bg");
+        let load = 0;
+        var blurring = () => {
+          load++;
+          if (load > 99) clearInterval(int);
+          loadText.innerText = load + "";
+          loadText.style.opacity = scale(load, 0, 100, 1, 0);
+          bg.style.filter = `blur(${scale(load, 0, 100, 30, 0)}px)`;
+        };
+        var scale = (num, in_min, in_max, out_min, out_max) => {
+          return (
+            ((num - in_min) * (out_max - out_min)) / (in_max - in_min) + out_min
+          );
+        };
+        let int = setInterval(blurring, 30);
+        var formData = new FormData();
+
+        formData.append(
+          "jsonData",
+          JSON.stringify({
+            presentation: {
+              template:
+                "https://github.com/shubham1210/workflowUI/raw/main/template_key_talking_points.pptx",
+              export_version: "Pptx2010",
+              resultFileName: "keyTalkingpoint",
+              tags: [
+                {
+                  Key: "size_of_points",
+                  Value: "5",
+                },
+                {
+                  Key: "client_name",
+                  Value: "Kencana",
+                },
+                {
+                  Key: "point_1",
+                  Value:
+                    "Kencana Agri is not RSPO certified and appears to have not started the process.  RSPO certification is the ‘Gold Standard’ for the industry.",
+                },
+                {
+                  Key: "point_2",
+                  Value:
+                    "Kencana Agri has a poor SPOTT score—the leading ESG rating agency for the Palm Oil sector.  Its score is in the lowest 40% of respondents.",
+                },
+                {
+                  Key: "point_3",
+                  Value:
+                    "Kencana Agri has generally poor (SPOTT) to no data / responses (CDP) regarding other ESG rating agencies",
+                },
+                {
+                  Key: "point_4",
+                  Value: "Key transition pathways for Palm Oil include:",
+                },
+                {
+                  Key: "point_4_1",
+                  Value: "RSPO certification for mills and suppliers;",
+                },
+                {
+                  Key: "point_4_2",
+                  Value: "net zero target;",
+                },
+                {
+                  Key: "point_4_3",
+                  Value: "no peat no deforestation no exploitation.",
+                },
+                {
+                  Key: "point_5",
+                  Value: "Kencana Agri key SPOTT gaps are:",
+                },
+                {
+                  Key: "point_5_1",
+                  Value: "RSPO certification (1/15)",
+                },
+                {
+                  Key: "point_5_2",
+                  Value: "Deforestation and biodiversity (3/19)",
+                },
+                {
+                  Key: "point_5_3",
+                  Value: "Landbank, maps and traceability (8.5/27)",
+                },
+                {
+                  Key: "point_5_4",
+                  Value: "Smallholders and suppliers (2.25/16)",
+                },
+                {
+                  Key: "point_6",
+                  Value: "Transition finance pathways may include:",
+                },
+                {
+                  Key: "point_6_1",
+                  Value:
+                    "Working capital for multi-year RSPO certification process",
+                },
+                {
+                  Key: "point_6_2",
+                  Value:
+                    "Capital investment for managing wastewater, mill effluent; chemical and pest management changes",
+                },
+              ],
+              slides: [
+                {
+                  type: "slide",
+                  slide_index: 0,
+                  shapes: [],
+                },
+                {
+                  type: "slide",
+                  slide_index: 1,
+                  shapes: [],
+                },
+              ],
+            },
+          })
+        );
+
+        var request = new XMLHttpRequest();
+        request.open(
+          "POST",
+          "https://gen.powerpointgeneratorapi.com/v1.0/generator/create",
+          true
+        );
+        request.setRequestHeader(
+          "Authorization",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoic2h1YmhhbS5zaGFybWFAYmFpbi5jb20iLCJuYmYiOiIxNjkyMzMxOTA4IiwiZXhwIjoiMTY5NzUxNTkwOCJ9.9dXhFnoTjNlxwJFxihXdGY71-jz6yB7hh-625kgB-C4"
+        );
+
+        request.responseType = "blob";
+
+        request.onload = function () {
+          if (request.readyState === request.DONE && request.status === 200) {
+            var blob = new Blob([request.response], {
+              type: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            });
+            var link = document.createElement("a");
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "generated.pptx";
+            //link.click();
+          }
+        };
+
+        request.send(formData);
+      });
+    </script>
+    <section class="bg"></section>
+    <h1 class="">Thanks for downloading Key Taking points</h1>
+    <div class="loading-text">0%</div>
+  </body>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Ubuntu&display=swap");
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Ubuntu", sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
+    }
+    .bg {
+      background: url("https://source.unsplash.com/1600x900/?nature,water")
+        no-repeat center center / cover;
+      position: absolute;
+      top: -30px;
+      left: -30px;
+      width: calc(100vw + 60px);
+      height: calc(100vh + 60px);
+      z-index: -1;
+      filter: blur(0px);
+    }
+    .loading-text {
+      font-size: 50px;
+      color: #a3b1c3;
+    }
+  </style>
+</html>
